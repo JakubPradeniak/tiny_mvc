@@ -1,0 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+require_once '../App/autoloader.php';
+
+use App\App;
+
+$app = new App();
+
+$app->run();
