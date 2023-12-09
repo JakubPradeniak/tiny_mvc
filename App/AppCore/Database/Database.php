@@ -16,10 +16,10 @@ class Database
 
     public function __construct()
     {
-        $host = getenv('MYSQL_HOST');
-        $database = getenv('MYSQL_DATABASE');
-
         try {
+            $host = getenv('MYSQL_HOST');
+            $database = getenv('MYSQL_DATABASE');
+
             $this->connection = new PDO(
                 "mysql:host=$host;dbname=$database;charset=utf8mb4",
                 getenv('MYSQL_USER'),

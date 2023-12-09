@@ -8,15 +8,12 @@ use PDO;
 
 class Model
 {
-    protected PDO|null $connection;
-
-    public function __construct(PDO|null $connection)
+    public function __construct(protected PDO $connection)
     {
-        $this->connection = $connection;
     }
 
     public function __destruct()
     {
-        $this->connection = null;
+        unset($this->connection);
     }
 }

@@ -9,7 +9,7 @@ use PDO;
 
 class Controller
 {
-    protected PDO|null $connection;
+    protected PDO $connection;
 
     public function __construct()
     {
@@ -18,6 +18,6 @@ class Controller
 
     public function __destruct()
     {
-        $this->connection = null;
+        unset($this->connection);
     }
 }

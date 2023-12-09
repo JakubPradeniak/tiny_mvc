@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace App\AppCore\Utils;
 
+use App\AppCore\Exceptions\EnvFileNotFoundException;
+
 class EnvParser
 {
+    /**
+     * @throws EnvFileNotFoundException
+     */
     public static function parse(string $envPath): void
     {
         if (file_exists($envPath)) {
