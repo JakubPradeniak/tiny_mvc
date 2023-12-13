@@ -20,10 +20,9 @@ class App
     {
         session_start();
         define('__APP_ROOT__', $_SERVER['DOCUMENT_ROOT'] . '/');
-        define('__APP_DOMAIN__', 'http://localhost/');
 
         try {
-            EnvParser::parse(__APP_ROOT__ . '.env');
+            EnvParser::parse(__APP_ROOT__ . '../.env');
         } catch (EnvFileNotFoundException $e) {
             // TODO: create view
             View::make('AppError', ['title' => 'Chyba aplikace']);

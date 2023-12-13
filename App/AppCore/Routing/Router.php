@@ -23,7 +23,11 @@ class Router
 
     private function processRoute(): string
     {
-        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        return str_replace(
+            getenv('APP_SUB_FOLDERS'),
+            '',
+            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+        );
     }
 
     private function routeExists(HttpMethod $method, string $route): bool
@@ -113,7 +117,7 @@ class Router
                 if (class_exists($route->handler[0])) {
                     $controller = new $route->handler[0]();
                     if (method_exists($controller, $route->handler[1])) {
-                        // Tato implementace háže v PHP 8+ chybu -> jedná se o bug v implmentaci PHP,
+                        // Tato implementace háže v PHP 8+ chybu -> jedná se o bug v implmentaci PHP (špatné předání asociativního pole),
                         // proto musíme použít jiný způsob volání
                         // call_user_func_array([$controller, $route['handler'][1]], $params);
 
