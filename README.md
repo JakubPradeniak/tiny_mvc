@@ -14,7 +14,9 @@ If you will use this project (or its part) for your application, keep in mind th
 
 ## Branches
 **main** - current work in progress branch
+
 **commentary** - branch with thoroughly commented code (TBD)
+
 **example-project** - branch with example project build upon tiny_mvc (simple blog) (TBD)
 
 # Tiny info - app architecture
