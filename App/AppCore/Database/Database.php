@@ -12,7 +12,7 @@ use PDOException;
 
 class Database
 {
-    private PDO|null $connection;
+    private PDO $connection;
 
     public function __construct()
     {
@@ -36,15 +36,11 @@ class Database
 
     public function __destruct()
     {
-        $this->connection = null;
+        unset($this->connection);
     }
 
     public function getConnection(): PDO
     {
-        if (!$this->connection) {
-            Redirect::redirect(Routes::AppError, []);
-        }
-
         return $this->connection;
     }
 }
