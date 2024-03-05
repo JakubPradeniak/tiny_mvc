@@ -14,7 +14,7 @@ class Route
         public HttpMethod $method,
         public array|Closure $handler,
         public bool $protected,
-    )
-    {
+        public int $weight = 0,
+    ) {
     }
 }

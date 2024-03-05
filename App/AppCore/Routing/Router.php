@@ -30,6 +30,16 @@ class Router
         );
     }
 
+    private function sortRoutes(): void
+    {
+        usort($this->routes, function (Route $a, Route $b) {
+            if ($a->weight === $b->weight) {
+                return 0;
+            }
+            return $a->weight > $b->weight ? 1 : -1;
+        });
+    }
+
     private function routeExists(HttpMethod $method, string $route): bool
     {
         foreach ($this->routes as $currentRoute) {
@@ -48,28 +58,24 @@ class Router
         }
     }
 
-    // Cesty pro zobrazení obsahu
     public function get(string $route, array|Closure $handler, bool $protected = false): Router
     {
         $this->addRoute(HttpMethod::Get, $route, $handler, $protected);
         return $this;
     }
 
-    // Cesty pro vytváření obsahu
     public function post(string $route, array $handler, bool $protected = false): Router
     {
         $this->addRoute(HttpMethod::Post, $route, $handler, $protected);
         return $this;
     }
 
-    // Cesty pro úpravy obsahu
     public function patch(string $route, array $handler, bool $protected = false): Router
     {
         $this->addRoute(HttpMethod::Patch, $route, $handler, $protected);
         return $this;
     }
 
-    // Cesty pro odstranění obsahu
     public function delete(string $route, array $handler, bool $protected = false): Router
     {
         $this->addRoute(HttpMethod::Delete, $route, $handler, $protected);
@@ -78,6 +84,7 @@ class Router
 
     public function resolveRequest(): void
     {
+        $this->sortRoutes();
         $requestRoute = $this->processRoute();
         $requestMethod = htmlspecialchars($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']);
 
@@ -87,9 +94,6 @@ class Router
 
 
             if ($match === 1 && $route['method'] === $requestMethod) {
-                // Ošetření přístupu k chráněným cestám -> pokud nebude uživate přihlášený -> redirect na Homepage
-                // Zpracování implementujeme v Router, abychom následně mohli na chránených stránkách bezpečně
-                // předpokládat, že uživatel je přihlášen a budeme pracovat s daty v $_SESSION['loggedUser']
                 if ($route->protected && !isset($_SESSION['loggedUser'])) {
                     Redirect::redirect(Routes::Homepage, []);
                 }
@@ -117,16 +121,7 @@ class Router
                 if (class_exists($route->handler[0])) {
                     $controller = new $route->handler[0]();
                     if (method_exists($controller, $route->handler[1])) {
-                        // Tato implementace háže v PHP 8+ chybu -> jedná se o bug v implmentaci PHP (špatné předání asociativního pole),
-                        // proto musíme použít jiný způsob volání
-                        // call_user_func_array([$controller, $route['handler'][1]], $params);
-
-                        // Metodu si uložíme do pomocné proměnné -> nechci používat zápis $controller->$route['handler'][1]($params);
                         $method = $route->method[1];
-
-                        // Klasické volání metody kontroleru => funguje protože PHP tento kód vyhodnotí např.
-                        // pro cestu /someUrl/ID/upravit na:
-                        // Controller->edit($params);
                         $controller->$method($params);
                         return;
                     }
@@ -137,7 +132,6 @@ class Router
         throw new RouteNotFoundException("Route: $requestRoute not found!");
     }
 
-    // Pomocná funkce pro debugování routeru
     public function dumpRoutes(): void
     {
         Debug::dd($this->routes);
