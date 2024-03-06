@@ -8,7 +8,7 @@ namespace App\AppCore\Utils;
  * Pomocná třída pro dočasné ukládání dat to $_SESSION
  */
 
-class Persist
+class Session
 {
     public static function set(string $key, mixed $data): void
     {
