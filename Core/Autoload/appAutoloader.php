@@ -23,9 +23,6 @@ spl_autoload_register(function ($class) {
     // with .php
     $file = $base_dir . '/src' . str_replace('\\', '/', $relative_class) . '.php';
 
-    var_dump($base_dir);
-    var_dump($file);
-
     // if the file exists, require it
     if (file_exists($file)) {
         require $file;
