@@ -4,35 +4,17 @@ declare(strict_types=1);
 
 namespace Core\Routing;
 
-use Closure;
-use Core\Exceptions\RouteNotFoundException;
-use Core\Http\HttpMethod;
-use Core\Utils\Debug;
-use Core\Utils\Redirect;
-use src\Routes\Routes;
+use App\Routes\Routes;
+use App\Routes\WebRoutes;
+use Core\Http\Request;
+use Core\Utils\Session;
+use RouterStatus;
 
 class Router
 {
-    /** @var Route[] $routes */
-    private array $routes;
-
-    public function __construct()
+    private static function sortRoutes(array $routes): void
     {
-        $this->routes = [];
-    }
-
-    private function processRoute(): string
-    {
-        return str_replace(
-            getenv('APP_SUB_FOLDERS'),
-            '',
-            parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
-        );
-    }
-
-    private function sortRoutes(): void
-    {
-        usort($this->routes, function (Route $a, Route $b) {
+        usort($routes, function (Route $a, Route $b) {
             if ($a->weight === $b->weight) {
                 return 0;
             }
@@ -40,61 +22,23 @@ class Router
         });
     }
 
-    private function routeExists(HttpMethod $method, string $route): bool
+    public static function findMatch(Request $request): RouterResponse
     {
-        foreach ($this->routes as $currentRoute) {
-            if ($route === $currentRoute->route && $method === $currentRoute->method) {
-                return true;
-            }
-        }
+        /** @var Route[] $routes */
+        $routes = WebRoutes::get();
 
-        return false;
-    }
+        self::sortRoutes($routes);
 
-    private function addRoute(HttpMethod $method, string $route, array|Closure $handler, bool $protected): void
-    {
-        if (!$this->routeExists($method, $route)) {
-            $this->routes[] = new Route($route, $method, $handler, $protected);
-        }
-    }
+        $requestRoute = $request->getRequestUri();
+        $requestMethod = $request->getRequestMethod();
 
-    public function get(string $route, array|Closure $handler, bool $protected = false): Router
-    {
-        $this->addRoute(HttpMethod::Get, $route, $handler, $protected);
-        return $this;
-    }
-
-    public function post(string $route, array $handler, bool $protected = false): Router
-    {
-        $this->addRoute(HttpMethod::Post, $route, $handler, $protected);
-        return $this;
-    }
-
-    public function patch(string $route, array $handler, bool $protected = false): Router
-    {
-        $this->addRoute(HttpMethod::Patch, $route, $handler, $protected);
-        return $this;
-    }
-
-    public function delete(string $route, array $handler, bool $protected = false): Router
-    {
-        $this->addRoute(HttpMethod::Delete, $route, $handler, $protected);
-        return $this;
-    }
-
-    public function resolveRequest(): void
-    {
-        $this->sortRoutes();
-        $requestRoute = $this->processRoute();
-        $requestMethod = htmlspecialchars($_POST['_method'] ?? $_SERVER['REQUEST_METHOD']);
-
-        foreach ($this->routes as $route) {
+        foreach ($routes as $route) {
             $routeRegex = preg_replace('/{.*}/', '.*', $route->route);
             $match = preg_match('|^' . $routeRegex . '$|', $requestRoute);
 
 
-            if ($match === 1 && $route['method'] === $requestMethod) {
-                if ($route->protected && !isset($_SESSION['loggedUser'])) {
+            if ($match === 1 && $route->method === $requestMethod) {
+                if ($route->protected && !Session::get('loggedUser')) {
                     Redirect::redirect(Routes::Homepage, []);
                 }
 
@@ -113,27 +57,10 @@ class Router
                     }
                 }
 
-                if (is_callable($route->handler)) {
-                    call_user_func($route->handler);
-                    return;
-                }
-
-                if (class_exists($route->handler[0])) {
-                    $controller = new $route->handler[0]();
-                    if (method_exists($controller, $route->handler[1])) {
-                        $method = $route->method[1];
-                        $controller->$method($params);
-                        return;
-                    }
-                }
+                return new RouterResponse(RouterStatus::Found, $route->handler, $params);
             }
         }
 
-        throw new RouteNotFoundException("Route: $requestRoute not found!");
-    }
-
-    public function dumpRoutes(): void
-    {
-        Debug::dd($this->routes);
+        return new RouterResponse(RouterStatus::NotFound, [], []);
     }
 }

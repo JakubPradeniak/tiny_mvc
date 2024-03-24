@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Core\Utils;
+namespace Core\Routing;
 
-use Core\Routing\Url;
-use src\Routes\Routes;
+use App\Routes\Routes;
 
 class Redirect
 {

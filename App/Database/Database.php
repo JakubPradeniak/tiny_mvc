@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace App\Database;
 
-use Core\Utils\Redirect;
+use Core\Routing\Redirect;
 use PDO;
 use PDOException;
 use src\Routes\Routes;

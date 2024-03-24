@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Routing;
 
-use src\Routes\Routes;
+use App\Routes\Routes;
 
 class Url
 {
