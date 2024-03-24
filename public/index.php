@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once '../Core/autoloader.php';
+require_once '../Core/Autoloading/autoloaders.php';
 
 use Core\App;
 

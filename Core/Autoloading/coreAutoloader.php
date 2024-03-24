@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 spl_autoload_register(function ($class) {
     // project-specific namespace prefix
-    $prefix = 'App';
+    $prefix = 'Core';
 
     // base directory for the namespace prefix
     $base_dir = __DIR__;
