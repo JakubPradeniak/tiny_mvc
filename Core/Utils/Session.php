@@ -20,8 +20,12 @@ class Session
         return $_SESSION[$key] ?? null;
     }
 
-    public static function delete(string|array $keys): void
+    public static function delete(string|array|null $keys): void
     {
+        if (!$keys) {
+            session_unset();
+        }
+
         if (is_array($keys)) {
             foreach ($keys as $key) {
                 unset($_SESSION[$key]);

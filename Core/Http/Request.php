@@ -12,6 +12,7 @@ readonly class Request
     private array $get;
     private array $post;
     private array $files;
+    private array $cookies;
     private array $server;
 
     public function __construct()
@@ -19,6 +20,7 @@ readonly class Request
         $this->get = Sanitize::sanitize($_GET);
         $this->post = Sanitize::sanitize($_POST);
         $this->files = $_FILES;
+        $this->cookies = Sanitize::sanitize($_COOKIE);;
         $this->server = $_SERVER;
     }
 
@@ -37,9 +39,15 @@ readonly class Request
         return $this->files;
     }
 
+    public function getCookies(): array
+    {
+        return $this->cookies;
+    }
+
     public function getRequestMethod(): HttpMethod
     {
         $httpMethod = HttpMethod::class;
+        
         if (isset($this->post['_method'])) {
             return $httpMethod::from($this->post['_method']);
         }
