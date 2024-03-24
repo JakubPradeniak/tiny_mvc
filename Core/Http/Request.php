@@ -10,9 +10,9 @@ class Request
 {
 
     private readonly array $get;
-        private readonly array $post;
-        private readonly array $files;
-        private readonly array $server;
+    private readonly array $post;
+    private readonly array $files;
+    private readonly array $server;
 
     public function __construct()
     {
@@ -39,10 +39,12 @@ class Request
 
     public function getRequestMethod(): HttpMethod
     {
-        if (isset($this->post['_method']))
-            return $this->post['_method'];
+        $httpMethod = HttpMethod::class;
+        if (isset($this->post['_method'])) {
+            return $httpMethod::from($this->post['_method']);
+        }
 
-        return $this->server['REQUEST_METHOD'];
+        return $httpMethod::from($this->server['REQUEST_METHOD']);
     }
 
     public function getRequestUri(): string
