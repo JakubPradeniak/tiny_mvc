@@ -8,7 +8,6 @@ use App\Routes\Routes;
 use App\Routes\WebRoutes;
 use Core\Http\Request;
 use Core\Utils\Session;
-use RouterStatus;
 
 class Router
 {
