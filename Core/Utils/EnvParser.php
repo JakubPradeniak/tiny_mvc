@@ -8,9 +8,6 @@ use Core\Exceptions\EnvFileNotFoundException;
 
 class EnvParser
 {
-    /**
-     * @throws EnvFileNotFoundException
-     */
     public static function parse(string $envPath): void
     {
         if (file_exists($envPath)) {
@@ -22,8 +19,6 @@ class EnvParser
                     trim($keyValuePair[0]) . '=' . trim($keyValuePair[1])
                 );
             }
-        } else {
-            throw new EnvFileNotFoundException(".env file: $envPath not found!");
         }
     }
 }
