@@ -7,4 +7,6 @@ namespace App\Routes;
 enum Routes: string
 {
     case Homepage = '/';
+    case AppError = '/chyba-aplikace';
+
 }

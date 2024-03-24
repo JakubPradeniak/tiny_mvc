@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Routes;
 
 use Core\Http\HttpMethod;
-use Core\Http\Response;
 use Core\Routing\Route;
 
 class WebRoutes
@@ -14,8 +13,11 @@ class WebRoutes
     {
         return [
             Route::make(Routes::Homepage->value, HttpMethod::Get, function () {
-                return new Response('Homepage');
+                echo "Homepage";
             }),
+            Route::make(Routes::AppError->value, HttpMethod::Get, function () {
+                echo "Chyba aplikace";
+            })
         ];
     }
 }

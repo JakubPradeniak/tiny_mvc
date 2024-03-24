@@ -5,10 +5,10 @@ declare(strict_types=1);
 
 namespace App\Database;
 
+use App\Routes\Routes;
 use Core\Routing\Redirect;
 use PDO;
 use PDOException;
-use src\Routes\Routes;
 
 class Database
 {
