@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Routing;
 
-use App\Core\Enums\HttpMethod;
+use App\Core\Http\HttpMethod;
 use Closure;
 
 class Route
