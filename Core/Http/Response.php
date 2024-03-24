@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Core\Http;
 
-class Response
+readonly class Response
 {
     public function __construct(
-        private readonly string $content = '',
-        private readonly int $status = 200,
-        private readonly array $headers = [],
+        private string $content = '',
+        private int $status = 200,
+        private array $headers = [],
     ) {
     }
 

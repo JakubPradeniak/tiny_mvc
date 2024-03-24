@@ -4,24 +4,27 @@ declare(strict_types=1);
 
 namespace Core;
 
-use Closure;
-use Core\Exceptions\EnvFileNotFoundException;
-use Core\Exceptions\RouteNotFoundException;
-use Core\Routing\Router;
+use Core\Http\Kernel;
+use Core\Http\Request;
 use Core\Utils\EnvParser;
-use Core\View\View;
 
 class App
 {
+    private Kernel $httpKernel;
+
     public function __construct()
     {
         session_start();
         define('__APP_ROOT__', $_SERVER['DOCUMENT_ROOT'] . '/');
         EnvParser::parse(__APP_ROOT__ . '../.env');
+
+        $this->httpKernel = new Kernel();
     }
 
     public function run(): void
     {
-        echo "Hello World";
+        $request = new Request();
+        $response = $this->httpKernel->handle($request);
+        $response->send();
     }
 }

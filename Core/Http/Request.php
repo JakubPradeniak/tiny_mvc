@@ -6,13 +6,13 @@ namespace Core\Http;
 
 use Core\Utils\Sanitize;
 
-class Request
+readonly class Request
 {
 
-    private readonly array $get;
-    private readonly array $post;
-    private readonly array $files;
-    private readonly array $server;
+    private array $get;
+    private array $post;
+    private array $files;
+    private array $server;
 
     public function __construct()
     {
