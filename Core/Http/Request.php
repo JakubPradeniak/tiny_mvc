@@ -47,9 +47,9 @@ readonly class Request
     public function getRequestMethod(): HttpMethod
     {
         $httpMethod = HttpMethod::class;
-        
+
         if (isset($this->post['_method'])) {
-            return $httpMethod::from($this->post['_method']);
+            return $httpMethod::from(htmlspecialchars($this->post['_method']));
         }
 
         return $httpMethod::from($this->server['REQUEST_METHOD']);
@@ -57,6 +57,16 @@ readonly class Request
 
     public function getRequestUri(): string
     {
-        return strtok($this->server['REQUEST_URI'], '?');
+        $appSubFolders = getenv('APP_SUB_FOLDERS');
+
+        if ($appSubFolders) {
+            return str_replace(
+                getenv('APP_SUB_FOLDERS'),
+                '',
+                parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+            );
+        }
+
+        return parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     }
 }
