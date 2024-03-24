@@ -7,7 +7,7 @@ spl_autoload_register(function ($class) {
     $prefix = 'App';
 
     // base directory for the namespace prefix
-    $base_dir = __DIR__;
+    $base_dir = str_replace(['\Autoload', '/Autoload'], '', __DIR__);
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);
