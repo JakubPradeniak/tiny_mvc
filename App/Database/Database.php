@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace Core\Database;
+namespace App\Database;
 
 use Core\Utils\Redirect;
 use PDO;
