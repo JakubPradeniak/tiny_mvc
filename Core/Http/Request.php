@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Http;
+namespace Core\Http;
 
-use App\Core\Utils\Sanitize;
+use Core\Utils\Sanitize;
 
 class Request
 {
@@ -35,5 +35,18 @@ class Request
     public function getFiles(): array
     {
         return $this->files;
+    }
+
+    public function getRequestMethod(): HttpMethod
+    {
+        if (isset($this->post['_method']))
+            return $this->post['_method'];
+
+        return $this->server['REQUEST_METHOD'];
+    }
+
+    public function getRequestUri(): string
+    {
+        return strtok($this->server['REQUEST_URI'], '?');
     }
 }
