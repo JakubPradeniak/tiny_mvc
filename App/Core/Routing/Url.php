@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Routing;
+namespace App\Core\Routing;
 
 use App\Routes\Routes;
 

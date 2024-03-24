@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Controller;
+namespace App\Core\Controller;
 
-use App\AppCore\Database\Database;
+use App\Core\Database\Database;
 use PDO;
 
 class Controller

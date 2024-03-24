@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Routing;
+namespace App\Core\Routing;
 
-use App\AppCore\Enums\HttpMethod;
+use App\Core\Enums\HttpMethod;
 use Closure;
 
 class Route

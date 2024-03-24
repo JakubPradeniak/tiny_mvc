@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Utils;
+namespace App\Core\Utils;
 
 use App\Routes\Routes;
-use App\AppCore\Routing\Url;
+use App\Core\Routing\Url;
 
 class Redirect
 {

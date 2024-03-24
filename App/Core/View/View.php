@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\View;
+namespace App\Core\View;
 
 class View
 {

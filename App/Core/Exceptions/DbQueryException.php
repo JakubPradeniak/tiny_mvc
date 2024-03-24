@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Exceptions;
+namespace App\Core\Exceptions;
 
 use Exception;
 
-class EnvFileNotFoundException extends Exception
+class DbQueryException extends Exception
 {
     public function __construct(string $message)
     {

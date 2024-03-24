@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\AppCore\Exceptions\EnvFileNotFoundException;
-use App\AppCore\Exceptions\RouteNotFoundException;
-use App\AppCore\Routing\Router;
-use App\AppCore\Utils\EnvParser;
-use App\AppCore\View\View;
+use App\Core\Exceptions\EnvFileNotFoundException;
+use App\Core\Exceptions\RouteNotFoundException;
+use App\Core\Routing\Router;
+use App\Core\Utils\EnvParser;
+use App\Core\View\View;
 use App\Routes\Routes;
 use Closure;
 

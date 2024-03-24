@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Model;
+namespace App\Core\Model;
 
 use PDO;
 

@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace App\AppCore\Database;
+namespace App\Core\Database;
 
-use App\AppCore\Utils\Redirect;
+use App\Core\Utils\Redirect;
 use App\Routes\Routes;
 use PDO;
 use PDOException;

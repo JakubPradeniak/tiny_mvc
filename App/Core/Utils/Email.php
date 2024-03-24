@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Utils;
+namespace App\Core\Utils;
 
 class Email
 {

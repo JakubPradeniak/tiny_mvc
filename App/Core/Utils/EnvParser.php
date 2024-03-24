@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Utils;
+namespace App\Core\Utils;
 
-use App\AppCore\Exceptions\EnvFileNotFoundException;
+use App\Core\Exceptions\EnvFileNotFoundException;
 
 class EnvParser
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\AppCore\Routing;
+namespace App\Core\Routing;
 
-use App\AppCore\Enums\HttpMethod;
-use App\AppCore\Exceptions\RouteNotFoundException;
-use App\AppCore\Utils\Debug;
-use App\AppCore\Utils\Redirect;
+use App\Core\Enums\HttpMethod;
+use App\Core\Exceptions\RouteNotFoundException;
+use App\Core\Utils\Debug;
+use App\Core\Utils\Redirect;
 use App\Routes\Routes;
 use Closure;
 
