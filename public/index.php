@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-require_once '../App/autoloader.php';
+require_once __DIR__ . '/../Core/Autoload/autoloader.php';
 
-use App\App;
+use Core\App;
 
 $app = new App();
 
