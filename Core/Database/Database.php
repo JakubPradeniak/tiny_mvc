@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-
-namespace App\Database;
+namespace Core\Database;
 
 use App\Routes\Routes;
 use Core\Routing\Redirect;
 use PDO;
 use PDOException;
+use PDOStatement;
 
 class Database
 {
@@ -39,8 +39,10 @@ class Database
         unset($this->connection);
     }
 
-    public function getConnection(): PDO
+    public function query(string $sql, array $parameters): PDOStatement
     {
-        return $this->connection;
+        $statement = $this->connection->prepare($sql);
+        $statement->execute($parameters);
+        return $statement;
     }
 }
