@@ -8,7 +8,7 @@ use Core\Persist\Session;
 
 class Form
 {
-    const TOKEN_ID = 'csrf_token';
+    public const TOKEN_ID = 'csrf_token';
 
     public static function getToken(): string
     {
