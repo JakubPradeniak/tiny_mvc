@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Core\Utils;
+namespace Core\Security;
 
-// Jednotuchá třída na základní ošetření vstupů
 class Sanitize
 {
     public static function sanitize(string|array $data): string|array
@@ -13,7 +12,7 @@ class Sanitize
             $processedArray = [];
 
             foreach ($data as $key => $value) {
-                $processedArray[$key] = trim(htmlspecialchars($value));
+                $processedArray[$key] = trim(htmlspecialchars($value, ENT_QUOTES, 'UTF-8'));
             }
 
             return $processedArray;

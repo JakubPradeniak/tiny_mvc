@@ -7,7 +7,7 @@ namespace Core\Routing;
 use App\Routes\Routes;
 use App\Routes\WebRoutes;
 use Core\Http\Request;
-use Core\Utils\Session;
+use Core\Persist\Session;
 
 class Router
 {
