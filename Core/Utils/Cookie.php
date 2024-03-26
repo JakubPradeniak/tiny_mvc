@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Core\Utils;
 
+use Core\Security\Sanitize;
+
 class Cookie
 {
     public static function set(

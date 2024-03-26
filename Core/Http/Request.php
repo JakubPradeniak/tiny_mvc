@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Http;
 
-use Core\Utils\Sanitize;
+use Core\Security\Sanitize;
 
 readonly class Request
 {
