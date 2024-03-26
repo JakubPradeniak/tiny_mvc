@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Utils;
+namespace Core\Persist;
 
 use Core\Security\Sanitize;
 

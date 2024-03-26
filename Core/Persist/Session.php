@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\Utils;
-
-/*
- * Pomocná třída pro dočasné ukládání dat to $_SESSION
- */
+namespace Core\Persist;
 
 class Session
 {
