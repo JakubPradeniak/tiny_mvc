@@ -12,9 +12,10 @@ use PDOStatement;
 
 class Database
 {
+    private static Database $instance;
     private PDO $connection;
 
-    public function __construct()
+    protected function __construct()
     {
         try {
             $host = getenv('MYSQL_HOST');
@@ -37,6 +38,15 @@ class Database
     public function __destruct()
     {
         unset($this->connection);
+    }
+
+    public static function getInstance(): Database
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 
     public function query(string $sql, array $parameters): PDOStatement
